@@ -1,5 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
+import torch
+torch.manual_seed(14)
 
 def same_padding(input_size, stride, kernel):
     padding = ((input_size-1)*stride + kernel - input_size)/2
@@ -13,7 +15,7 @@ class cnn(nn.Module):
         self.pool1 = nn.MaxPool2d(8,stride=8)
         self.conv2 = nn.Conv2d(8,16,2,stride=1,padding=same_padding(64,1,2),bias=True,padding_mode='zeros')
         self.pool2 = nn.MaxPool2d(4,stride=4)
-        self.fc = nn.Linear(64*64*16*64,64*6)
+        self.fc = nn.Linear(63504,1*6)
     
     def forward(self,x):
         x = F.relu(self.conv1(x))
